@@ -25,19 +25,19 @@ config.port = 8080;
 // TLS client authentication for restricting access to authorized clients.
 // You may want to disable it if you want public access to parts of your server.
 config.tls = true;
-config.tlsKey = process.env.HOME + '/.partyplay/partyplay-key.pem';
-config.tlsCert = process.env.HOME + '/.partyplay/partyplay-cert.pem';
-config.tlsCa = process.env.HOME + '/.partyplay/partyplay-cert.pem';
+config.tlsKey = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
+config.tlsCert = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
+config.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
 config.requestCert = true; // TLS client authentication
 config.rejectUnauthorized = true; // Disabling leaves you vulnerable to MITM
 
 config.verifyMac = {};
 config.verifyMac.algorithm = 'sha256';
-config.verifyMac.key = process.env.HOME + '/.partyplay/partyplay-key.pem';
+config.verifyMac.key = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
 config.verifyMac.iterations = 1000;
 config.verifyMac.keyLen = 256;
 
-config.songCachePath = process.env.HOME + '/.partyplay/songCache';
+config.songCachePath = process.env.HOME + '/.nodeplayer/song-cache';
 config.searchResultCnt = 10;
 //config.badVotePercent = 0.67;
 config.badVotePercent = 0.51;
