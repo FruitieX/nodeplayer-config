@@ -1,5 +1,5 @@
 {
-  "name": "nodeplayer_defaults",
+  "name": "nodeplayer-defaults",
   "version": "0.1.0",
   "description": "default config for nodeplayer",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FruitieX/nodeplayer_defaults.git"
+    "url": "https://github.com/FruitieX/nodeplayer-defaults.git"
   },
   "author": "FruitieX",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FruitieX/nodeplayer_defaults/issues"
+    "url": "https://github.com/FruitieX/nodeplayer-defaults/issues"
   },
-  "homepage": "https://github.com/FruitieX/nodeplayer_defaults"
+  "homepage": "https://github.com/FruitieX/nodeplayer-defaults"
 }

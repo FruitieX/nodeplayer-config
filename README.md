@@ -1,2 +1,2 @@
-# nodeplayer_defaults
+# nodeplayer-defaults
 default config for nodeplayer
