@@ -15,7 +15,15 @@ config.backends = ['youtube', 'gmusic'];
 //
 // NOTE: ordering is important here, plugins that depend on other plugins will
 // complain if order is wrong
-config.plugins = ['http', 'rest', 'ipfilter', 'socketio', 'partyplay'];
+config.plugins = [
+    'storeQueue',
+    'express',
+    'rest',
+    'ipfilter',
+    'socketio',
+    'httpAuth',
+    'partyplay'
+];
 
 config.hostname = 'https://mydomain.com';
 config.port = 8080;
@@ -49,5 +57,9 @@ config.log = true;
 config.filterStreamIPs = ['10.8.0.0/24', '127.0.0.1'];
 // is the above a blacklist (deny) or whitelist (allow)?
 config.filterAction = 'allow';
+
+// HTTP basic authentication for music streaming
+config.username = "testuser";
+config.password = "keyboard cat";
 
 module.exports = config;
