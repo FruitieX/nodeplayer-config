@@ -21,6 +21,7 @@ config.plugins = [
     'rest',
     'ipfilter',
     'socketio',
+    'weblistener',
     'httpAuth',
     'partyplay'
 ];
