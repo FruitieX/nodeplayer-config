@@ -26,7 +26,7 @@ config.plugins = [
     'partyplay'
 ];
 
-config.hostname = 'https://mydomain.com';
+config.hostname = 'mydomain.com';
 config.port = 8080;
 
 // TLS options
