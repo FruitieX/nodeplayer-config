@@ -35,6 +35,8 @@ defaultConfig.plugins = [
     'partyplay'
 ];
 
+defaultConfig.loglevel = 'info';
+
 defaultConfig.hostname = 'mydomain.com';
 defaultConfig.port = 8080;
 
