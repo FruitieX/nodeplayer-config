@@ -12,10 +12,13 @@ var defaultConfig = {};
 // Default nodeplayer config
 //
 // These variables can be overridden by writing the variables you
-// wish to override into ~/.nodeplayer-config.js
+// wish to override into ~/.nodeplayer-config.json:
 //
-// Use the same structure, a config object which contains config variables
-// as properties. Export the object at the bottom of the file.
+// {
+//     configVariable1: "value",
+//     configVariable2: 42,
+//     ...
+// }
 
 // backends are sources of music
 defaultConfig.backends = ['youtube', 'gmusic'];
@@ -78,7 +81,7 @@ defaultConfig.username = "testuser";
 defaultConfig.password = "keyboard cat";
 
 module.exports = function(logger) {
-    var path = getConfigPath('nodeplayer-config.js')
+    var path = getConfigPath('nodeplayer-config.json')
     try {
         var userConfig = require(path);
         return _.defaults(userConfig, defaultConfig);
