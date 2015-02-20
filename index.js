@@ -1,53 +1,71 @@
-var config = {};
+var _ = require('underscore');
 
-// Default partyplay config
+var getConfigPath = function(config) {
+	if (process.platform == 'win32')
+		return process.env.USERPROFILE + '\\nodeplayer\\' + config;
+	else
+		return process.env.HOME + '/.' + config;
+};
+
+var defaultConfig = {};
+
+// Default nodeplayer config
 //
 // These variables can be overridden by writing the variables you
-// wish to override into ~/.partyplayConfig.js
+// wish to override into ~/.nodeplayer-config.js
 //
 // Use the same structure, a config object which contains config variables
 // as properties. Export the object at the bottom of the file.
 
 // backends are sources of music
-config.backends = ['youtube', 'gmusic'];
+defaultConfig.backends = ['youtube', 'gmusic'];
 
 // plugins are "everything else", most of the functionality is in plugins
 //
 // NOTE: ordering is important here, plugins that depend on other plugins will
 // complain if order is wrong
-config.plugins = ['storeQueue', 'http', 'rest', 'ipfilter', 'socketio', 'partyplay'];
+defaultConfig.plugins = ['storeQueue', 'http', 'rest', 'ipfilter', 'socketio', 'partyplay'];
 
-config.hostname = 'https://mydomain.com';
-config.port = 8080;
+defaultConfig.hostname = 'https://mydomain.com';
+defaultConfig.port = 8080;
 
 // TLS options
 // By default we use the same TLS key/cert as CA, and on clients/server. We use
 // TLS client authentication for restricting access to authorized clients.
 // You may want to disable it if you want public access to parts of your server.
-config.tls = true;
-config.tlsKey = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
-config.tlsCert = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
-config.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
-config.requestCert = true; // TLS client authentication
-config.rejectUnauthorized = true; // Disabling leaves you vulnerable to MITM
+defaultConfig.tls = true;
+defaultConfig.tlsKey = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
+defaultConfig.tlsCert = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
+defaultConfig.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
+defaultConfig.requestCert = true; // TLS client authentication
+defaultConfig.rejectUnauthorized = true; // Disabling leaves you vulnerable to MITM
 
-config.verifyMac = {};
-config.verifyMac.algorithm = 'sha256';
-config.verifyMac.key = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
-config.verifyMac.iterations = 1000;
-config.verifyMac.keyLen = 256;
+defaultConfig.verifyMac = {};
+defaultConfig.verifyMac.algorithm = 'sha256';
+defaultConfig.verifyMac.key = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
+defaultConfig.verifyMac.iterations = 1000;
+defaultConfig.verifyMac.keyLen = 256;
 
-config.songCachePath = process.env.HOME + '/.nodeplayer/song-cache';
-config.searchResultCnt = 10;
-//config.badVotePercent = 0.67;
-config.badVotePercent = 0.51;
-config.songDelayMs = 1000; // add delay between songs to prevent skips
-config.songMaxDuration = 8 * 60 * 1000; // max allowed song duration
-config.log = true;
+defaultConfig.songCachePath = process.env.HOME + '/.nodeplayer/song-cache';
+defaultConfig.searchResultCnt = 10;
+defaultConfig.badVotePercent = 0.51;
+defaultConfig.songDelayMs = 1000; // add delay between songs to prevent skips
+defaultConfig.songMaxDuration = 8 * 60 * 1000; // max allowed song duration
+defaultConfig.log = true;
 
 // IP filter for listener
-config.filterStreamIPs = ['10.8.0.0/24', '127.0.0.1'];
+defaultConfig.filterStreamIPs = ['10.8.0.0/24', '127.0.0.1'];
 // is the above a blacklist (deny) or whitelist (allow)?
-config.filterAction = 'allow';
+defaultConfig.filterAction = 'allow';
 
-module.exports = config;
+module.exports = function(logger) {
+    var path = getConfigPath('nodeplayer-config.js')
+    try {
+        var userConfig = require(path);
+        return _.defaults(userConfig, defaultConfig);
+    } catch(e) {
+        logger.warn("Couldn't find user configuration file: " + path);
+        logger.warn("Using default configuration file");
+        return defaultConfig;
+    }
+};

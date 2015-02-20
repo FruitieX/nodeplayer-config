@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/FruitieX/nodeplayer-defaults/issues"
   },
-  "homepage": "https://github.com/FruitieX/nodeplayer-defaults"
+  "homepage": "https://github.com/FruitieX/nodeplayer-defaults",
+  "dependencies": {
+    "underscore": "^1.8.1"
+  }
 }
