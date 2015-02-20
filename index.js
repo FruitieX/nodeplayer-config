@@ -35,7 +35,10 @@ defaultConfig.plugins = [
     'partyplay'
 ];
 
-defaultConfig.loglevel = 'info';
+defaultConfig.logLevel = 'info';
+defaultConfig.logColorize = true;
+defaultConfig.logExceptions = false; // disabled for now because it looks terrible
+defaultConfig.logJson = false;
 
 defaultConfig.hostname = 'mydomain.com';
 defaultConfig.port = 8080;
