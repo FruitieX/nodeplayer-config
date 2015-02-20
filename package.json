@@ -1,6 +1,6 @@
 {
   "name": "nodeplayer-defaults",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "default config for nodeplayer",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/FruitieX/nodeplayer-defaults/issues"
   },
-  "homepage": "https://github.com/FruitieX/nodeplayer-defaults"
+  "homepage": "https://github.com/FruitieX/nodeplayer-defaults",
+  "dependencies": {
+    "underscore": "^1.8.1"
+  }
 }
