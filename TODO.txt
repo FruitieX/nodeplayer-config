@@ -1,0 +1,2 @@
+- option to write current configuration into ~/.nodeplayer-config.json
+- rename project to nodeplayer-config
