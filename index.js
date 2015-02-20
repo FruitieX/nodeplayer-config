@@ -32,6 +32,7 @@ defaultConfig.plugins = [
     'socketio',
     'weblistener',
     'httpAuth',
+    'verifyMac',
     'partyplay'
 ];
 
