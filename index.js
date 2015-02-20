@@ -24,9 +24,18 @@ defaultConfig.backends = ['youtube', 'gmusic'];
 //
 // NOTE: ordering is important here, plugins that depend on other plugins will
 // complain if order is wrong
-defaultConfig.plugins = ['storeQueue', 'http', 'rest', 'ipfilter', 'socketio', 'partyplay'];
+defaultConfig.plugins = [
+    'storeQueue',
+    'express',
+    'rest',
+    'ipfilter',
+    'socketio',
+    'weblistener',
+    'httpAuth',
+    'partyplay'
+];
 
-defaultConfig.hostname = 'https://mydomain.com';
+defaultConfig.hostname = 'mydomain.com';
 defaultConfig.port = 8080;
 
 // TLS options
@@ -57,6 +66,10 @@ defaultConfig.log = true;
 defaultConfig.filterStreamIPs = ['10.8.0.0/24', '127.0.0.1'];
 // is the above a blacklist (deny) or whitelist (allow)?
 defaultConfig.filterAction = 'allow';
+
+// HTTP basic authentication for music streaming
+defaultConfig.username = "testuser";
+defaultConfig.password = "keyboard cat";
 
 module.exports = function(logger) {
     var path = getConfigPath('nodeplayer-config.js')
