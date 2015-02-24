@@ -1,13 +1,15 @@
 var _ = require('underscore');
-
-var getConfigPath = function(config) {
-	if (process.platform == 'win32')
-		return process.env.USERPROFILE + '\\nodeplayer\\' + config;
-	else
-		return process.env.HOME + '/.' + config;
-};
+var mkdirp = require('mkdirp');
+var fs = require('fs');
 
 var defaultConfig = {};
+
+var getConfigDir = function() {
+	if (process.platform == 'win32')
+		return process.env.USERPROFILE + '\\nodeplayer\\';
+	else
+		return process.env.HOME + '/.nodeplayer/';
+};
 
 // Default nodeplayer config
 //
@@ -80,14 +82,29 @@ defaultConfig.filterAction = 'allow';
 defaultConfig.username = "testuser";
 defaultConfig.password = "keyboard cat";
 
-module.exports = function(logger) {
-    var path = getConfigPath('nodeplayer-config.json')
+module.exports = function() {
+    var path = getConfigDir() + 'nodeplayer-config.json';
     try {
         var userConfig = require(path);
-        return _.defaults(userConfig, defaultConfig);
+        var config = _.defaults(userConfig, defaultConfig);
+        config.getConfigDir = getConfigDir;
+        return config;
     } catch(e) {
-        logger.warn("Couldn't find user configuration file: " + path);
-        logger.warn("Using default configuration file");
-        return defaultConfig;
+        if(e.code === 'MODULE_NOT_FOUND') {
+            console.warn('WARNING: Couldn\'t find user configuration file.');
+            console.warn('Creating sample configuration file containing default settings into:');
+            console.warn(path);
+
+            mkdirp(getConfigDir());
+            fs.writeFileSync(path, JSON.stringify(defaultConfig, undefined, 4));
+
+            console.warn('\nFile created. Go edit it NOW! Relaunch nodeplayer when done configuring.');
+            console.warn('Note that the file only needs to contain the configuration variables that');
+            console.warn('you want to override from the defaults. Also note that it MUST be valid JSON!');
+            process.exit(0);
+        } else {
+            console.warn('unexpected error while loading nodeplayer configuration');
+            console.warn(e);
+        }
     }
 };
