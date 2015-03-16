@@ -60,6 +60,10 @@ defaultConfig.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
 defaultConfig.requestCert = true; // TLS client authentication
 defaultConfig.rejectUnauthorized = true; // Disabling leaves you vulnerable to MITM
 
+defaultConfig.socketio = {
+    queueLimit: 30
+};
+
 defaultConfig.verifyMac = {};
 defaultConfig.verifyMac.algorithm = 'sha256';
 defaultConfig.verifyMac.key = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
