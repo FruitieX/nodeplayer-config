@@ -89,6 +89,11 @@ defaultConfig.username = "testuser";
 defaultConfig.password = "keyboard cat";
 
 module.exports = function() {
+    if(process.env.NODE_ENV === 'test') {
+        console.warn('running in unit test mode, using default configuration');
+        return defaultConfig;
+    }
+
     var path = getConfigDir() + 'nodeplayer-config.json';
     try {
         var userConfig = require(path);
