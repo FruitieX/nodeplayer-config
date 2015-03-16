@@ -46,6 +46,8 @@ defaultConfig.logColorize = true;
 defaultConfig.logExceptions = false; // disabled for now because it looks terrible
 defaultConfig.logJson = false;
 
+defaultConfig.playedQueueSize = 100;
+
 defaultConfig.hostname = 'mydomain.com';
 defaultConfig.port = 8080;
 
