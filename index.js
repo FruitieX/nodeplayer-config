@@ -90,7 +90,6 @@ defaultConfig.password = "keyboard cat";
 
 module.exports = function() {
     if(process.env.NODE_ENV === 'test') {
-        console.warn('running in unit test mode, using default configuration');
         return defaultConfig;
     }
 
