@@ -2,6 +2,34 @@ var _ = require('underscore');
 var mkdirp = require('mkdirp');
 var fs = require('fs');
 var os = require('os');
+var path = require('path');
+
+function getHomeDir() {
+    if (process.platform === 'win32') {
+        return process.env.USERPROFILE;
+    } else {
+        return process.env.HOME;
+    }
+};
+exports.getHomeDir = getHomeDir;
+
+function getConfigDir() {
+    if (process.platform === 'win32') {
+        return process.env.USERPROFILE + '\\nodeplayer\\config';
+    } else {
+        return process.env.HOME + '/.nodeplayer/config';
+    }
+};
+exports.getConfigDir = getConfigDir;
+
+function getBaseDir() {
+    if (process.platform === 'win32') {
+        return process.env.USERPROFILE + '\\nodeplayer';
+    } else {
+        return process.env.HOME + '/.nodeplayer';
+    }
+};
+exports.getBaseDir = getBaseDir;
 
 // Default nodeplayer config
 //
@@ -39,18 +67,13 @@ defaultConfig.logColorize = true;
 defaultConfig.logExceptions = false; // disabled for now because it looks terrible
 defaultConfig.logJson = false;
 
+defaultConfig.songCachePath = getBaseDir() + path.sep + 'song-cache';
+defaultConfig.searchResultCnt = 10;
 defaultConfig.playedQueueSize = 100;
+defaultConfig.songDelayMs = 1000; // add delay between songs to prevent skips
 
 // hostname of the server, may be used as a default value by other plugins
 defaultConfig.hostname = os.hostname();
-
-function getConfigDir() {
-	if (process.platform == 'win32')
-		return process.env.USERPROFILE + '\\nodeplayer\\config\\';
-	else
-		return process.env.HOME + '/.nodeplayer/config/';
-};
-exports.getConfigDir = getConfigDir;
 
 exports.getDefaultConfig = function() {
     return defaultConfig;
@@ -60,13 +83,13 @@ exports.getDefaultConfig = function() {
 exports.getConfig = function(moduleName, defaults) {
     if (process.env.NODE_ENV === 'test') {
         // unit tests should always use default config
-        return defaults || defaultConfig;
+        return (defaults || defaultConfig);
     }
 
-    var path = getConfigDir() + (moduleName || 'core') + '.json'));
+    var configPath = getConfigDir() + path.sep + (moduleName || 'core') + '.json';
 
     try {
-        var userConfig = require(path);
+        var userConfig = require(configPath);
         var config = _.defaults(userConfig, defaults || defaultConfig);
         return config;
     } catch(e) {
@@ -78,10 +101,10 @@ exports.getConfig = function(moduleName, defaults) {
             }
             console.warn('We couldn\'t find the user configuration file for module "' + (moduleName || 'core') + '",');
             console.warn('so a sample configuration file containing default settings will be written into:');
-            console.warn(path);
+            console.warn(configPath);
 
-            mkdirp(getConfigDir());
-            fs.writeFileSync(path, JSON.stringify(defaultConfig, undefined, 4));
+            mkdirp.sync(getConfigDir());
+            fs.writeFileSync(configPath, JSON.stringify(defaults || defaultConfig, undefined, 4));
 
             console.warn('\nFile created. Go edit it NOW! Relaunch nodeplayer when done configuring.');
             console.warn('Note that the file only needs to contain the configuration variables that');
