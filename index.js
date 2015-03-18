@@ -99,6 +99,7 @@ exports.getConfig = function(moduleName, defaults) {
                 console.warn('Welcome to nodeplayer!');
                 console.warn('----------------------');
             }
+            console.warn('\n=====================================================================');
             console.warn('We couldn\'t find the user configuration file for module "' + (moduleName || 'core') + '",');
             console.warn('so a sample configuration file containing default settings will be written into:');
             console.warn(configPath);
@@ -106,10 +107,12 @@ exports.getConfig = function(moduleName, defaults) {
             mkdirp.sync(getConfigDir());
             fs.writeFileSync(configPath, JSON.stringify(defaults || defaultConfig, undefined, 4));
 
-            console.warn('\nFile created. Go edit it NOW! Relaunch nodeplayer when done configuring.');
+            console.warn('\nFile created. Go edit it NOW!');
             console.warn('Note that the file only needs to contain the configuration variables that');
             console.warn('you want to override from the defaults. Also note that it MUST be valid JSON!');
-            process.exit(0);
+            console.warn('=====================================================================\n');
+
+            return (defaults || defaultConfig);
         } else {
             console.warn('Unexpected error while loading configuration for module "' + (moduleName || 'core') + '":');
             console.warn(e);
