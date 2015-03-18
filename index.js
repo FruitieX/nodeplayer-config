@@ -54,12 +54,12 @@ defaultConfig.backends = [
 // NOTE: ordering is important here, plugins that require another plugin will
 // complain if order is wrong.
 defaultConfig.plugins = [
-    'storeQueue',
+    'storequeue',
     'express',
     'rest',
     'socketio',
     'weblistener',
-    'httpAuth'
+    'httpauth'
 ];
 
 defaultConfig.logLevel = 'info';
