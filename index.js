@@ -22,23 +22,20 @@ var getConfigDir = function() {
 //     ...
 // }
 
-// backends are sources of music
-defaultConfig.backends = ['youtube', 'gmusic'];
+// backends are sources of music, default backends don't require API keys
+defaultConfig.backends = ['file'];
 
 // plugins are "everything else", most of the functionality is in plugins
 //
-// NOTE: ordering is important here, plugins that depend on other plugins will
-// complain if order is wrong
+// NOTE: ordering is important here, plugins that require another plugin will
+// complain if order is wrong.
 defaultConfig.plugins = [
     'storeQueue',
     'express',
     'rest',
-    'ipfilter',
     'socketio',
     'weblistener',
-    'httpAuth',
-    'verifyMac',
-    'partyplay'
+    'httpAuth'
 ];
 
 defaultConfig.logLevel = 'info';
@@ -48,17 +45,17 @@ defaultConfig.logJson = false;
 
 defaultConfig.playedQueueSize = 100;
 
-defaultConfig.hostname = 'mydomain.com';
+defaultConfig.hostname = 'replaceme.com';
 defaultConfig.port = 8080;
 
 // TLS options
 // By default we use the same TLS key/cert as CA, and on clients/server. We use
 // TLS client authentication for restricting access to authorized clients.
 // You may want to disable it if you want public access to parts of your server.
-defaultConfig.tls = true;
+defaultConfig.tls = false;
 defaultConfig.tlsKey = process.env.HOME + '/.nodeplayer/nodeplayer-key.pem';
 defaultConfig.tlsCert = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
-defaultConfig.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-cert.pem';
+defaultConfig.tlsCa = process.env.HOME + '/.nodeplayer/nodeplayer-ca.pem';
 defaultConfig.requestCert = true; // TLS client authentication
 defaultConfig.rejectUnauthorized = true; // Disabling leaves you vulnerable to MITM
 

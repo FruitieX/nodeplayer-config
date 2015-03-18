@@ -1,2 +1,3 @@
-# nodeplayer-defaults
-default config for nodeplayer
+# nodeplayer-config
+
+Config loader with default values for nodeplayer

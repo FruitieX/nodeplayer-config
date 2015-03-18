@@ -1,21 +1,21 @@
 {
-  "name": "nodeplayer-defaults",
-  "version": "0.1.9",
-  "description": "default config for nodeplayer",
+  "name": "nodeplayer-config",
+  "version": "0.1.91",
+  "description": "config loader with default values for nodeplayer",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FruitieX/nodeplayer-defaults.git"
+    "url": "https://github.com/FruitieX/nodeplayer-config.git"
   },
   "author": "FruitieX",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FruitieX/nodeplayer-defaults/issues"
+    "url": "https://github.com/FruitieX/nodeplayer-config/issues"
   },
-  "homepage": "https://github.com/FruitieX/nodeplayer-defaults",
+  "homepage": "https://github.com/FruitieX/nodeplayer-config",
   "dependencies": {
     "mkdirp": "^0.5.0",
     "underscore": "^1.8.1"
