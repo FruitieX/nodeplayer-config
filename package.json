@@ -1,6 +1,6 @@
 {
   "name": "nodeplayer-config",
-  "version": "0.1.99",
+  "version": "0.1.991",
   "description": "config loader with default values for nodeplayer",
   "main": "index.js",
   "scripts": {

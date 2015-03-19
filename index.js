@@ -112,6 +112,12 @@ exports.getConfig = function(moduleName, defaults) {
             console.warn('you want to override from the defaults. Also note that it MUST be valid JSON!');
             console.warn('=====================================================================\n');
 
+            if (!moduleName) {
+                // only exit on missing core module config
+                console.warn('Exiting now. Please re-run nodeplayer when you\'re done configuring!');
+                process.exit(0);
+            }
+
             return (defaults || defaultConfig);
         } else {
             console.warn('Unexpected error while loading configuration for module "' + (moduleName || 'core') + '":');
